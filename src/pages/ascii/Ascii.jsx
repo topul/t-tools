@@ -1148,7 +1148,7 @@ const Ascii = () => {
             <td>175</td>
             <td>7D</td>
             <td>01111101</td>
-            <td>}</td>
+            <td>{'}'}</td>
             <td>&amp;#125;</td>
             <td>Closing brace</td>
           </tr>

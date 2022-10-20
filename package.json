@@ -16,9 +16,12 @@
     "make": "electron-forge make"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^4.23.2",
     "dayjs": "^1.11.5",
     "electron-squirrel-startup": "^1.0.0",
+    "image-size": "^1.0.2",
+    "jimp": "^0.16.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "6"

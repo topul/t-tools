@@ -15,6 +15,7 @@ function getItem(label, key, icon, children, type) {
   }
 }
 const items = [
+  getItem('图片处理', 'image'),
   getItem('世界时间与时区换算', 'time'),
   getItem('ASCII表', 'ascii'),
   getItem('温度单位转换', 'temp'),
@@ -37,8 +38,8 @@ const home = () => {
             width: 200,
             height: '100%',
           }}
-          // theme='dark'
-          defaultSelectedKeys={['time']}
+          theme='dark'
+          defaultSelectedKeys={['image']}
           mode='inline'
           items={items}
           onClick={onMenuClick}
