@@ -2,7 +2,7 @@ import React from 'react'
 
 const Ascii = () => {
   return (
-    <div className='h-full w-full overflow-y-auto bg-white'>
+    <div className='h-full w-full overflow-y-auto bg-white p-6'>
       {/* <div>
         <h1 className='font-bold text-4xl'>ASCii码表</h1>
       </div> */}

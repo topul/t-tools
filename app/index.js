@@ -2,6 +2,7 @@ const path = require('path')
 const { app, BrowserWindow } = require('electron')
 const { ipcMain, dialog } = require('electron/main')
 const fs = require('fs-extra')
+const sizeOf = require('image-size')
 
 if (require('electron-squirrel-startup')) {
   app.quit()
@@ -20,13 +21,28 @@ async function handleFileOpen(mainWindow) {
     return
   } else {
     const data = fs.readFileSync(filePaths[0])
-    return "data:image/jpg;base64," + data.toString('base64')
+    const dimensions = sizeOf(filePaths[0])
+    return {
+      path: filePaths[0],
+      data: "data:image/jpg;base64," + data.toString('base64'),
+      dimensions
+    }
+  }
+}
+async function handleFolderOpen(mainWindow) {
+  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+    properties: ['openDirectory']
+  })
+  if (canceled) {
+    return
+  } else {
+    return filePaths[0]
   }
 }
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 900,
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -40,6 +56,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'))
   }
   ipcMain.handle('dialog:openFile', () => handleFileOpen(mainWindow))
+  ipcMain.handle('dialog:opeFolder', () => handleFolderOpen(mainWindow))
 }
 
 

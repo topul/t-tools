@@ -43,7 +43,7 @@ const time = () => {
     }, 1000)
   }, [])
   return (
-    <div className='time'>
+    <div className='time p-6'>
       <div className='time-top'>
         <Card style={{ width: 300 }}>
           <p>本地时间</p>

@@ -39,7 +39,7 @@ const Temp = () => {
   }
 
   return (
-    <div>
+    <div className='p-6'>
       <div>
         <div>
           摄氏度（℃）：

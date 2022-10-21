@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { Radio, Input } from 'antd'
 
 const Base = () => {
@@ -24,27 +24,31 @@ const Base = () => {
     setToRadix(e.target.value)
   }
 
-  return <div>
-    <div>
-      <Radio.Group onChange={onChange} value={fromRadix}>
-        <Radio value={2}>2进制</Radio>
-        <Radio value={8}>8进制</Radio>
-        <Radio value={10}>10进制</Radio>
-        <Radio value={16}>16进制</Radio>
-      </Radio.Group>
+  return (
+    <div className='p-6'>
       <div>
-      原始数字：<Input placeholder="原始数字" value={src} onChange={srcChange} />
-      </div>
-      <Radio.Group onChange={destChange} value={toRadix}>
-        <Radio value={2}>2进制</Radio>
-        <Radio value={8}>8进制</Radio>
-        <Radio value={10}>10进制</Radio>
-        <Radio value={16}>16进制</Radio>
-      </Radio.Group>
-      <div>
-        结果：<Input placeholder="结果" value={destValue} />
+        <Radio.Group onChange={onChange} value={fromRadix}>
+          <Radio value={2}>2进制</Radio>
+          <Radio value={8}>8进制</Radio>
+          <Radio value={10}>10进制</Radio>
+          <Radio value={16}>16进制</Radio>
+        </Radio.Group>
+        <div>
+          原始数字：
+          <Input placeholder='原始数字' value={src} onChange={srcChange} />
+        </div>
+        <Radio.Group onChange={destChange} value={toRadix}>
+          <Radio value={2}>2进制</Radio>
+          <Radio value={8}>8进制</Radio>
+          <Radio value={10}>10进制</Radio>
+          <Radio value={16}>16进制</Radio>
+        </Radio.Group>
+        <div>
+          结果：
+          <Input placeholder='结果' value={destValue} />
+        </div>
       </div>
     </div>
-  </div>
+  )
 }
 export default Base

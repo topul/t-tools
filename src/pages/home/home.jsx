@@ -45,10 +45,9 @@ const home = () => {
           onClick={onMenuClick}
         />
       </Sider>
-      <Layout style={{ padding: '0 24px 24px' }} className="bg-white">
+      <Layout className="bg-white">
         <Content
           style={{
-            padding: 24,
             margin: 0,
             minHeight: 280,
           }}
