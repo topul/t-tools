@@ -5,8 +5,12 @@
   "main": "app/index.js",
   "description": "electron-vite-react",
   "license": "MIT",
+  "author": {
+    "name": "topul",
+    "email": "qiaocuixinzhiweini@gmail.com"
+  },
   "scripts": {
-    "start": "npm run build && npm run electron:start",
+    "start": "electron-forge start",
     "dev": "concurrently -k \"vite\" \"npm run electron:dev\"",
     "build": "vite build",
     "preview": "vite preview",
@@ -33,6 +37,7 @@
     "@electron-forge/maker-rpm": "^6.1.1",
     "@electron-forge/maker-squirrel": "^6.1.1",
     "@electron-forge/maker-zip": "^6.1.1",
+    "@electron-forge/publisher-github": "^6.1.1",
     "@types/react": "^18.2.5",
     "@types/react-dom": "^18.2.4",
     "@vitejs/plugin-react": "^4.0.0",

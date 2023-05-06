@@ -1,18 +1,31 @@
 import React, { useState } from 'react'
-import { Image, Form, Input, Button, Checkbox } from 'antd'
+import { Image, Form, Input, Button, Checkbox, notification } from 'antd'
 import { PlusSquareOutlined } from '@ant-design/icons'
+import { Slider } from 'antd'
 
 const ImageHandler = () => {
   const [imageInfo, setImageInfo] = useState({
     dimensions: {},
   })
+  const [fileName, setFileName] = useState('')
   const [form] = Form.useForm()
 
   const openFileDialog = async () => {
-    console.log('openFileDialog', window.electronAPI)
     const result = await window.electronAPI.openFileDialog()
     console.log(result)
-    result && setImageInfo(result)
+    if (result) {
+      setImageInfo(result)
+      form.setFieldsValue({
+        width: result.dimensions.width,
+        height: result.dimensions.height,
+        quality: 100,
+        greyscale: false,
+        path: result.path,
+      })
+      let filePath = result.path.split('\\')
+      console.log("🚀 ~ file: ImageHandler.jsx:26 ~ openFileDialog ~ filePath:", filePath)
+      setFileName(filePath[filePath.length - 1])
+    }
   }
 
   const openFolderDialog = async () => {
@@ -20,6 +33,18 @@ const ImageHandler = () => {
     console.log(result)
     form.setFieldsValue({
       path: result
+    })
+  }
+
+  const onFinish = async (values) => {
+    console.log('onFinish', values)
+    const result = await window.electronAPI.saveImage({
+      ...values,
+      path: values.path + '\\' + fileName,
+    })
+    console.log(result)
+    notification.success({
+      message: '保存成功'
     })
   }
 
@@ -40,6 +65,7 @@ const ImageHandler = () => {
                 wrapperCol={{ span: 18 }}
                 autoComplete='off'
                 labelAlign='left'
+                onFinish={onFinish}
               >
                 <Form.Item label='宽' name='width'>
                   <Input />
@@ -48,9 +74,9 @@ const ImageHandler = () => {
                   <Input />
                 </Form.Item>
                 <Form.Item label='质量' name='quality'>
-                  <Input />
+                  <Slider min={0} max={100} />
                 </Form.Item>
-                <Form.Item label='灰度' name='greyscale'>
+                <Form.Item label='灰度' name='greyscale' valuePropName='checked'>
                   <Checkbox></Checkbox>
                 </Form.Item>
                 {/* TODO: 截取 */}

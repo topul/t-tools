@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Menu, Layout } from 'antd'
 import { Outlet, useNavigate } from 'react-router-dom'
 
@@ -22,6 +22,10 @@ const items = [
 ]
 const home = () => {
   let navigate = useNavigate()
+
+  useEffect(() => {
+    navigate('/image')
+  }, [])
 
   const onMenuClick = ({ item, key, keyPath, domEvent }) => {
     navigate(`/${key}`)
