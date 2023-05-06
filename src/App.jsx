@@ -6,7 +6,6 @@ import Time from './pages/time/Time'
 import Ascii from './pages/ascii/Ascii'
 import Temp from './pages/temp/Temp'
 import Base from './pages/Base/Base'
-import 'antd/dist/antd.css'
 import './App.css'
 
 function App() {

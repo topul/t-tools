@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Card, Input, Button, Select, message } from 'antd'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import './time.css'
 dayjs.extend(utc)
 
 const { Option } = Select
@@ -43,8 +42,8 @@ const time = () => {
     }, 1000)
   }, [])
   return (
-    <div className='time p-6'>
-      <div className='time-top'>
+    <div className='p-6'>
+      <div className='flex gap-5'>
         <Card style={{ width: 300 }}>
           <p>本地时间</p>
           <div>{localTime}</div>
@@ -54,7 +53,7 @@ const time = () => {
           <div>{utcTime}</div>
         </Card>
       </div>
-      <div className="time-content">
+      <div className="mt-5">
         时间：
         <Input placeholder='请输入要转换的时间' value={originTime} onChange={onChange} />
         时区：

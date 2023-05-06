@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Image, Form, Input, Button, Checkbox } from 'antd'
 import { PlusSquareOutlined } from '@ant-design/icons'
-import './image.css'
 
 const ImageHandler = () => {
   const [imageInfo, setImageInfo] = useState({

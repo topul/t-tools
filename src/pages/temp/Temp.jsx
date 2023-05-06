@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Input } from 'antd'
-import './temp.css'
 
 const Temp = () => {
   const [c, setC] = useState(30)
@@ -57,7 +56,7 @@ const Temp = () => {
             onChange={onFChange}
           />
         </div>
-        <div className='comment'>
+        <div className='mt-5 text-gray-500'>
           计算公式：华氏度 = 摄氏度 * 1.8 + 32
         </div>
       </div>

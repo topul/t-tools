@@ -1,7 +1,6 @@
 import React from 'react'
 import { Menu, Layout } from 'antd'
 import { Outlet, useNavigate } from 'react-router-dom'
-import './home.css'
 
 const { Header, Content, Sider } = Layout
 
@@ -38,7 +37,7 @@ const home = () => {
             width: 200,
             height: '100%',
           }}
-          theme='dark'
+          theme='light'
           defaultSelectedKeys={['image']}
           mode='inline'
           items={items}
