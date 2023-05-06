@@ -7,8 +7,13 @@ const Base = () => {
   const [toRadix, setToRadix] = useState(16)
   const [destValue, setDestValue] = useState()
 
+  const baseTransfer = (src, from, to) => {
+    return parseInt(src, from).toString(to)
+  }
+
+
   const transfer = () => {
-    setDestValue(parseInt(src, fromRadix).toString(toRadix))
+    setDestValue(baseTransfer(src, fromRadix, toRadix))
   }
   useEffect(() => {
     transfer()
