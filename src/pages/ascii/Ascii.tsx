@@ -1,22 +1,20 @@
-import React from 'react'
-
 const Ascii = () => {
   return (
-    <div className='h-full w-full overflow-y-auto bg-white p-6'>
+    <div className="h-full w-full overflow-y-auto bg-white p-6">
       {/* <div>
         <h1 className='font-bold text-4xl'>ASCii码表</h1>
       </div> */}
-      <h4 className='font-bold text-xl mb-4'>ASCii打印字符对照表</h4>
-      <table className='table text-center'>
+      <h4 className="font-bold text-xl mb-4">ASCii打印字符对照表</h4>
+      <table className="table text-center">
         <tbody>
           <tr>
-            <th className='w-10'>DEC</th>
-            <th className='w-10'>OCT</th>
-            <th className='w-10'>HEX</th>
-            <th className='w-30'>BIN</th>
-            <th className='w-20'>缩写/符号</th>
-            <th className='w-20'>HTML实体</th>
-            <th className='w-30'>描述</th>
+            <th className="w-10">DEC</th>
+            <th className="w-10">OCT</th>
+            <th className="w-10">HEX</th>
+            <th className="w-30">BIN</th>
+            <th className="w-20">缩写/符号</th>
+            <th className="w-20">HTML实体</th>
+            <th className="w-30">描述</th>
           </tr>
           <tr>
             <td>0</td>
@@ -329,7 +327,7 @@ const Ascii = () => {
             <td>042</td>
             <td>22</td>
             <td>00100010</td>
-            <td>"</td>
+            <td>&quot;</td>
             <td>&amp;#34;</td>
             <td>Double quotes</td>
           </tr>
@@ -374,7 +372,7 @@ const Ascii = () => {
             <td>047</td>
             <td>27</td>
             <td>00100111</td>
-            <td>'</td>
+            <td>&apos;</td>
             <td>&amp;#39;</td>
             <td>Single quote</td>
           </tr>
@@ -1172,17 +1170,17 @@ const Ascii = () => {
           </tr>
         </tbody>
       </table>
-      <h4 className='font-bold text-xl my-4'>扩展ASCii打印字符对照表</h4>
-      <table className='table text-center'>
+      <h4 className="font-bold text-xl my-4">扩展ASCii打印字符对照表</h4>
+      <table className="table text-center">
         <tbody>
           <tr>
-            <th className='w-10'>DEC</th>
-            <th className='w-10'>OCT</th>
-            <th className='w-10'>HEX</th>
-            <th className='w-30'>BIN</th>
-            <th className='w-20'>缩写/符号</th>
-            <th className='w-20'>HTML实体</th>
-            <th className='w-30'>描述</th>
+            <th className="w-10">DEC</th>
+            <th className="w-10">OCT</th>
+            <th className="w-10">HEX</th>
+            <th className="w-30">BIN</th>
+            <th className="w-20">缩写/符号</th>
+            <th className="w-20">HTML实体</th>
+            <th className="w-30">描述</th>
           </tr>
           <tr>
             <td>128</td>

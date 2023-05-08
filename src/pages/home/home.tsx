@@ -1,19 +1,28 @@
-import React, { useEffect } from 'react'
-import { Menu, Layout } from 'antd'
-import { Outlet, useNavigate } from 'react-router-dom'
+import {useEffect} from 'react'
+import {Menu, Layout} from 'antd'
+import type {MenuProps} from 'antd'
+import {Outlet, useNavigate} from 'react-router-dom'
 
-const { Header, Content, Sider } = Layout
+const {Content, Sider} = Layout
 
-function getItem(label, key, icon, children, type) {
+type MenuItem = Required<MenuProps>['items'][number]
+
+function getItem(
+  label: React.ReactNode,
+  key?: React.Key | null,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group',
+): MenuItem {
   return {
     key,
     icon,
     children,
     label,
     type,
-  }
+  } as MenuItem
 }
-const items = [
+const items: MenuItem[] = [
   getItem('图片处理', 'image'),
   getItem('世界时间与时区换算', 'time'),
   getItem('ASCII表', 'ascii'),
@@ -21,29 +30,31 @@ const items = [
   getItem('进制转换', 'base'),
 ]
 const home = () => {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     navigate('/image')
   }, [])
 
-  const onMenuClick = ({ item, key, keyPath, domEvent }) => {
+  const onMenuClick: MenuProps['onClick'] = ({key}) => {
     navigate(`/${key}`)
   }
   return (
-    <Layout style={{
-      width: '100%',
-      height: '100%'
-    }}>
+    <Layout
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
+    >
       <Sider width={200}>
         <Menu
           style={{
             width: 200,
             height: '100%',
           }}
-          theme='light'
+          theme="light"
           defaultSelectedKeys={['image']}
-          mode='inline'
+          mode="inline"
           items={items}
           onClick={onMenuClick}
         />

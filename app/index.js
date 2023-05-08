@@ -1,6 +1,6 @@
 const path = require('path')
-const { app, BrowserWindow } = require('electron')
-const { ipcMain, dialog } = require('electron/main')
+const {app, BrowserWindow} = require('electron')
+const {ipcMain, dialog} = require('electron/main')
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
 const Jimp = require('jimp')
@@ -13,14 +13,14 @@ const isDev = process.env.IS_DEV === 'true'
 let imageFilePath = ''
 
 async function handleFileOpen(mainWindow) {
-  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+  const {canceled, filePaths} = await dialog.showOpenDialog(mainWindow, {
     properties: ['openFile'],
     filters: [
-      { name: 'Images', extensions: ['jpeg', 'png', 'bmp', 'tiff', 'gif'] },
+      {name: 'Images', extensions: ['jpeg', 'png', 'bmp', 'tiff', 'gif']},
     ],
   })
   if (canceled) {
-    return
+    return false
   } else {
     const data = fs.readFileSync(filePaths[0])
     const dimensions = sizeOf(filePaths[0])
@@ -33,11 +33,11 @@ async function handleFileOpen(mainWindow) {
   }
 }
 async function handleFolderOpen(mainWindow) {
-  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+  const {canceled, filePaths} = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory'],
   })
   if (canceled) {
-    return
+    return false
   } else {
     return filePaths[0]
   }
@@ -47,7 +47,7 @@ async function handleImageSave(data) {
   console.log(data)
   try {
     const image = await Jimp.read(imageFilePath)
-    let newImage = image
+    const newImage = image
       .resize(+data.width, +data.height)
       .quality(data.quality)
     let greyscaleImage = newImage
