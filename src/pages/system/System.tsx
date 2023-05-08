@@ -1,4 +1,4 @@
-import {Form} from 'antd'
+import {Form, Progress} from 'antd'
 import {useEffect, useState} from 'react'
 
 const System = () => {
@@ -12,6 +12,8 @@ const System = () => {
     const version = window.nodeAPI.process.getSystemVersion()
     setVersion(version)
     // 获取内存使用率，并刷新
+    const memoryInfo = window.nodeAPI.process.getSystemMemoryInfo()
+    setMemoryInfo(memoryInfo)
     const _interval = setInterval(() => {
       const memoryInfo = window.nodeAPI.process.getSystemMemoryInfo()
       setMemoryInfo(memoryInfo)
@@ -27,7 +29,7 @@ const System = () => {
   }, [])
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex gap-5 justify-around">
       <Form>
         <Form.Item label="系统平台">
           <span>{platform}</span>
@@ -41,6 +43,8 @@ const System = () => {
         <Form.Item label="v8版本">
           <span>{versions.v8}</span>
         </Form.Item>
+      </Form>
+      <div>
         <Form.Item label="系统内存">
           <span>{(memoryInfo.total / 1024 / 1024).toFixed(2)}GB</span>
         </Form.Item>
@@ -48,15 +52,18 @@ const System = () => {
           <span>{(memoryInfo.free / 1024 / 1024).toFixed(2)}GB</span>
         </Form.Item>
         <Form.Item label="系统内存使用率">
-          <span>
-            {(
-              ((memoryInfo.total - memoryInfo.free) * 100) /
-              memoryInfo.total
-            ).toFixed(2)}
-            %
-          </span>
+          <Progress
+            type="circle"
+            percent={
+              +(
+                ((memoryInfo.total - memoryInfo.free) * 100) /
+                memoryInfo.total
+              ).toFixed(2)
+            }
+            strokeColor={{'0%': '#108ee9', '100%': '#87d068'}}
+          />
         </Form.Item>
-      </Form>
+      </div>
     </div>
   )
 }
