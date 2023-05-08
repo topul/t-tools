@@ -15,3 +15,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+* {
+  margin: 0;
+  padding: 0;
+}
+#root {
+  width: 100vw;
+  min-width: 900px;
+  height: 100vh;
+  overflow: hidden;
+}
+

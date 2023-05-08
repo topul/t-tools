@@ -1,7 +1,8 @@
 import {useEffect} from 'react'
 import {Menu, Layout} from 'antd'
 import type {MenuProps} from 'antd'
-import {Outlet, useNavigate} from 'react-router-dom'
+import {Outlet, useLocation, useNavigate} from 'react-router-dom'
+import {ArrowLeftOutlined} from '@ant-design/icons'
 
 const {Content, Sider} = Layout
 
@@ -24,16 +25,18 @@ function getItem(
 }
 const items: MenuItem[] = [
   getItem('图片处理', 'image'),
-  getItem('世界时间与时区换算', 'time'),
-  getItem('ASCII表', 'ascii'),
-  getItem('温度单位转换', 'temp'),
-  getItem('进制转换', 'base'),
+  getItem('工具箱', 'tools'),
 ]
+
+const notHasBack = ['/image', '/tools']
+
 const home = () => {
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     navigate('/image')
+    console.log('location', location)
   }, [])
 
   const onMenuClick: MenuProps['onClick'] = ({key}) => {
@@ -66,6 +69,16 @@ const home = () => {
             minHeight: 280,
           }}
         >
+          {!notHasBack.includes(location.pathname) && (
+            <div className="pl-2">
+              <ArrowLeftOutlined
+                style={{fontSize: '24px', cursor: 'pointer'}}
+                onClick={() => {
+                  navigate(-1)
+                }}
+              />
+            </div>
+          )}
           <Outlet />
         </Content>
       </Layout>

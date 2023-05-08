@@ -1,5 +1,5 @@
 const path = require('path')
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 const {ipcMain, dialog} = require('electron/main')
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
@@ -62,6 +62,15 @@ async function handleImageSave(data) {
   }
 }
 
+// 菜单
+ipcMain.on('show-context-menu', event => {
+  const template = [
+    {label: '开发者工具', click: () => event.sender.openDevTools()},
+  ]
+  const menu = Menu.buildFromTemplate(template)
+  menu.popup(BrowserWindow.fromWebContents(event.sender))
+})
+
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
@@ -83,9 +92,11 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  Menu.setApplicationMenu(null)
   createWindow()
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) {
+      Menu.setApplicationMenu(null)
       createWindow()
     }
   })
