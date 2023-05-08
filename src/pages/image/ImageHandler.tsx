@@ -49,7 +49,7 @@ const ImageHandler = () => {
     console.log('onFinish', values)
     await window.electronAPI.saveImage({
       ...values,
-      path: values.path + '\\' + fileName,
+      path: window.nodeAPI.path.join(values.path, fileName),
     })
     notification.success({
       message: '保存成功',

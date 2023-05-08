@@ -17,4 +17,8 @@ interface Window {
       greyscale: boolean
     }) => Promise<void>
   }
+  nodeAPI: {
+    path: PlatformPath
+    process: electronProcess
+  }
 }

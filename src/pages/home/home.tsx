@@ -26,9 +26,10 @@ function getItem(
 const items: MenuItem[] = [
   getItem('图片处理', 'image'),
   getItem('工具箱', 'tools'),
+  getItem('系统', 'system'),
 ]
 
-const notHasBack = ['/image', '/tools']
+const notHasBack = ['/image', '/tools', '/system']
 
 const home = () => {
   const navigate = useNavigate()
