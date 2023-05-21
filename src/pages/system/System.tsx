@@ -43,6 +43,12 @@ const System = () => {
         <Form.Item label="v8版本">
           <span>{versions.v8}</span>
         </Form.Item>
+        <Form.Item label="chrome版本">
+          <span>{versions.chrome}</span>
+        </Form.Item>
+        <Form.Item label="electron版本">
+          <span>{versions.electron}</span>
+        </Form.Item>
       </Form>
       <div>
         <Form.Item label="系统内存">
