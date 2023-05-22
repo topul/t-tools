@@ -1,5 +1,6 @@
 const process = require('process')
 const path = require('path')
+const os = require('os')
 const {contextBridge, ipcRenderer} = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
@@ -22,6 +23,11 @@ contextBridge.exposeInMainWorld('nodeAPI', {
     release: () => process.release,
     versions: () => process.versions,
     cpuUsage: () => process.cpuUsage(),
+  },
+  os: {
+    networkInterfaces: () => os.networkInterfaces(),
+    hostname: () => os.hostname(),
+    cpus: () => os.cpus(),
   },
 })
 

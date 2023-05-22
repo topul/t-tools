@@ -6,6 +6,41 @@ const System = () => {
   const [version, setVersion] = useState('')
   const [memoryInfo, setMemoryInfo] = useState({} as any)
   const [versions, setVersions] = useState({} as any)
+  const [ip, setIp] = useState('') // 本机ip
+  const [hostname, setHostname] = useState('') // 本机主机名
+  const [cpus, setCpus] = useState([] as any) // cpu信息
+
+  const getIpAddress = () => {
+    const interfaces = window.nodeAPI.os.networkInterfaces()
+    for (const devName in interfaces) {
+      const iface = interfaces[devName]
+      for (let i = 0; i < iface.length; i++) {
+        const alias = iface[i]
+        if (
+          alias.family === 'IPv4' &&
+          alias.address !== '127.0.0.1' &&
+          !alias.internal
+        ) {
+          setIp(alias.address)
+        }
+      }
+    }
+  }
+
+  const getCpus = () => {
+    let reStr = ``
+    const cpuInfo = window.nodeAPI.os.cpus()
+    cpuInfo.forEach(item => {
+      reStr += `${item.model as string} \n`
+    })
+    setCpus(reStr)
+  }
+
+  const getHostname = () => {
+    const hostname = window.nodeAPI.os.hostname()
+    setHostname(hostname)
+  }
+
   useEffect(() => {
     const platform = window.nodeAPI.process.platform()
     setPlatform(platform)
@@ -20,6 +55,9 @@ const System = () => {
     }, 1000)
     const versions = window.nodeAPI.process.versions()
     setVersions(versions)
+    getIpAddress()
+    getHostname()
+    getCpus()
     return () => {
       setPlatform('')
       setVersion('')
@@ -29,13 +67,22 @@ const System = () => {
   }, [])
 
   return (
-    <div className="p-4 flex gap-5 justify-around">
-      <Form>
+    <div className="h-full p-1 flex gap-5 overflow-y-auto">
+      <Form labelCol={{span: 12}} wrapperCol={{span: 12}}>
         <Form.Item label="系统平台">
           <span>{platform}</span>
         </Form.Item>
         <Form.Item label="系统版本">
           <span>{version}</span>
+        </Form.Item>
+        <Form.Item label="本机ip">
+          <span>{ip}</span>
+        </Form.Item>
+        <Form.Item label="本机主机名">
+          <span>{hostname}</span>
+        </Form.Item>
+        <Form.Item label="cpu信息">
+          <pre>{cpus}</pre>
         </Form.Item>
         <Form.Item label="node版本">
           <span>{versions.node}</span>
@@ -49,8 +96,6 @@ const System = () => {
         <Form.Item label="electron版本">
           <span>{versions.electron}</span>
         </Form.Item>
-      </Form>
-      <div>
         <Form.Item label="系统内存">
           <span>{(memoryInfo.total / 1024 / 1024).toFixed(2)}GB</span>
         </Form.Item>
@@ -69,7 +114,7 @@ const System = () => {
             strokeColor={{'0%': '#108ee9', '100%': '#87d068'}}
           />
         </Form.Item>
-      </div>
+      </Form>
     </div>
   )
 }

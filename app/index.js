@@ -65,6 +65,7 @@ async function handleImageSave(data) {
 // 菜单
 ipcMain.on('show-context-menu', event => {
   const template = [
+    {label: '刷新', click: () => event.sender.reload()},
     {label: '开发者工具', click: () => event.sender.openDevTools()},
   ]
   const menu = Menu.buildFromTemplate(template)

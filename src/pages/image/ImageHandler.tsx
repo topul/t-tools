@@ -33,7 +33,7 @@ const ImageHandler = () => {
 
   const openFolderDialog = async () => {
     const result = await window.electronAPI.openFolderDialog()
-    console.log(result)
+    if (!result) return
     form.setFieldsValue({
       path: result,
     })
@@ -122,7 +122,7 @@ const ImageHandler = () => {
           </div>
         )}
       </div>
-      <div className="h-8 flex-none flex items-center bg-slate-600 text-white">
+      <div className="h-8 flex-none flex items-center text-black">
         {imageInfo?.dimensions?.type && (
           <div className="px-3">类型：{imageInfo.dimensions.type}</div>
         )}

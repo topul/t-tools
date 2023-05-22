@@ -20,5 +20,10 @@ interface Window {
   nodeAPI: {
     path: PlatformPath
     process: electronProcess
+    os: {
+      networkInterfaces: NetworkInterfaceBase
+      hostname: () => string
+      cpus: () => CPUInfo[]
+    }
   }
 }

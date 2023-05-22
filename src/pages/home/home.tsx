@@ -1,8 +1,13 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {Menu, Layout} from 'antd'
 import type {MenuProps} from 'antd'
 import {Outlet, useLocation, useNavigate} from 'react-router-dom'
-import {ArrowLeftOutlined} from '@ant-design/icons'
+import {
+  ArrowLeftOutlined,
+  FileImageOutlined,
+  InfoCircleOutlined,
+  ToolOutlined,
+} from '@ant-design/icons'
 
 const {Content, Sider} = Layout
 
@@ -24,9 +29,9 @@ function getItem(
   } as MenuItem
 }
 const items: MenuItem[] = [
-  getItem('图片处理', 'image'),
-  getItem('工具箱', 'tools'),
-  getItem('系统', 'system'),
+  getItem('图片处理', 'image', <FileImageOutlined />),
+  getItem('工具箱', 'tools', <ToolOutlined />),
+  getItem('系统', 'system', <InfoCircleOutlined />),
 ]
 
 const notHasBack = ['/image', '/tools', '/system']
@@ -34,6 +39,7 @@ const notHasBack = ['/image', '/tools', '/system']
 const home = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const [collapsed, setCollapsed] = useState(false)
 
   useEffect(() => {
     navigate('/image')
@@ -50,10 +56,16 @@ const home = () => {
         height: '100%',
       }}
     >
-      <Sider width={200}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={value => {
+          setCollapsed(value)
+        }}
+        theme="light"
+      >
         <Menu
           style={{
-            width: 200,
             height: '100%',
           }}
           theme="light"
