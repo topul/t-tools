@@ -6,6 +6,7 @@ import Ascii from '../pages/tools/ascii/Ascii'
 import Temp from '../pages/tools/temp/Temp'
 import Base from '../pages/tools/Base/Base'
 import System from '../pages/system/System'
+import Setting from '../pages/setting/Setting'
 
 export default [
   {
@@ -39,6 +40,10 @@ export default [
       {
         path: 'system',
         element: <System />,
+      },
+      {
+        path: 'setting',
+        element: <Setting />,
       },
     ],
   },

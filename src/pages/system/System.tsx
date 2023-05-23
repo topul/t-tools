@@ -67,8 +67,8 @@ const System = () => {
   }, [])
 
   return (
-    <div className="h-full p-1 flex gap-5 overflow-y-auto">
-      <Form labelCol={{span: 12}} wrapperCol={{span: 12}}>
+    <div className="h-full p-4 flex gap-5 overflow-y-auto">
+      <Form labelCol={{span: 4}} wrapperCol={{span: 20}} className="w-full">
         <Form.Item label="系统平台">
           <span>{platform}</span>
         </Form.Item>

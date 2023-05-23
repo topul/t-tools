@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Image, Form, Input, Button, Checkbox, notification, Slider} from 'antd'
-import {PlusSquareOutlined} from '@ant-design/icons'
+import {PlusSquareTwoTone} from '@ant-design/icons'
 
 const ImageHandler = () => {
   const [imageInfo, setImageInfo] = useState<{
@@ -118,7 +118,7 @@ const ImageHandler = () => {
               openFileDialog()
             }}
           >
-            <PlusSquareOutlined style={{fontSize: '128px'}} />
+            <PlusSquareTwoTone className="text-9xl" />
           </div>
         )}
       </div>
