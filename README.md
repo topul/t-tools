@@ -7,10 +7,13 @@
 ## tools
 
 Features:
-- base transform
-- timezone
-- ascii
-- temp unit transform
+- [x] base transform
+- [x] timezone
+- [x] ascii
+- [x] temp unit transform
+- [ ] text transform
+- [ ] color transform
+- [ ] generate qr code
 
 <img width="1194" alt="image" src="https://github.com/topul/t-tools/assets/8213229/a4895354-e7b7-4472-af57-f21f1c77b3b7">
 
@@ -21,5 +24,6 @@ Features:
 ## settings
 
 Features:
-- dark mode
-- multiple language
+- [x] dark mode
+- [x] multiple language
+- [ ] more...
