@@ -1,5 +1,6 @@
 import {Form, Progress} from 'antd'
 import {useEffect, useState} from 'react'
+import {useTranslation} from 'react-i18next'
 
 const System = () => {
   const [platform, setPlatform] = useState('')
@@ -9,6 +10,7 @@ const System = () => {
   const [ip, setIp] = useState('') // 本机ip
   const [hostname, setHostname] = useState('') // 本机主机名
   const [cpus, setCpus] = useState([] as any) // cpu信息
+  const {t} = useTranslation()
 
   const getIpAddress = () => {
     const interfaces = window.nodeAPI.os.networkInterfaces()
@@ -68,41 +70,41 @@ const System = () => {
 
   return (
     <div className="h-full p-4 flex gap-5 overflow-y-auto">
-      <Form labelCol={{span: 4}} wrapperCol={{span: 20}} className="w-full">
-        <Form.Item label="系统平台">
+      <Form labelCol={{span: 6}} wrapperCol={{span: 18}} className="w-full">
+        <Form.Item label={t('systemPlatform')}>
           <span>{platform}</span>
         </Form.Item>
-        <Form.Item label="系统版本">
+        <Form.Item label={t('systemVersion')}>
           <span>{version}</span>
         </Form.Item>
-        <Form.Item label="本机ip">
+        <Form.Item label={t('localIp')}>
           <span>{ip}</span>
         </Form.Item>
-        <Form.Item label="本机主机名">
+        <Form.Item label={t('hostname')}>
           <span>{hostname}</span>
         </Form.Item>
-        <Form.Item label="cpu信息">
+        <Form.Item label={t('cpuInfo')}>
           <pre>{cpus}</pre>
         </Form.Item>
-        <Form.Item label="node版本">
+        <Form.Item label={'Node ' + t('version')}>
           <span>{versions.node}</span>
         </Form.Item>
-        <Form.Item label="v8版本">
+        <Form.Item label={'V8 ' + t('version')}>
           <span>{versions.v8}</span>
         </Form.Item>
-        <Form.Item label="chrome版本">
+        <Form.Item label={'Chrome ' + t('version')}>
           <span>{versions.chrome}</span>
         </Form.Item>
-        <Form.Item label="electron版本">
+        <Form.Item label={'Electron ' + t('version')}>
           <span>{versions.electron}</span>
         </Form.Item>
-        <Form.Item label="系统内存">
+        <Form.Item label={t('memory')}>
           <span>{(memoryInfo.total / 1024 / 1024).toFixed(2)}GB</span>
         </Form.Item>
-        <Form.Item label="系统可用内存">
+        <Form.Item label={t('availableMemory')}>
           <span>{(memoryInfo.free / 1024 / 1024).toFixed(2)}GB</span>
         </Form.Item>
-        <Form.Item label="系统内存使用率">
+        <Form.Item label={t('memoryUsage')}>
           <Progress
             type="circle"
             percent={

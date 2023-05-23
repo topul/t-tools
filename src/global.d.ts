@@ -14,7 +14,7 @@ interface Window {
       width: string
       height: string
       quality: number
-      greyscale: boolean
+      grayscale: boolean
     }) => Promise<void>
   }
   nodeAPI: {

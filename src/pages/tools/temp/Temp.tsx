@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react'
 import {Input} from 'antd'
+import {useTranslation} from 'react-i18next'
 
 const Temp = () => {
   const [c, setC] = useState<string | number>(30)
   const [f, setF] = useState<string | number>()
+  const {t} = useTranslation()
   useEffect(() => {
     setF(centigradeToFahrenheit(c))
   }, [])
@@ -41,15 +43,23 @@ const Temp = () => {
     <div className="p-6">
       <div>
         <div>
-          摄氏度（℃）：
-          <Input placeholder="请输入摄氏度" value={c} onChange={onCChange} />
+          {t('celsius')}(℃):
+          <Input
+            placeholder={t('celsius') ?? ''}
+            value={c}
+            onChange={onCChange}
+          />
         </div>
         <div>
-          华氏度（℉）：
-          <Input placeholder="请输入摄氏度" value={f} onChange={onFChange} />
+          {t('fahrenheit')}(℉):
+          <Input
+            placeholder={t('fahrenheit') ?? ''}
+            value={f}
+            onChange={onFChange}
+          />
         </div>
         <div className="mt-5 text-gray-500">
-          计算公式：华氏度 = 摄氏度 * 1.8 + 32
+          {t('formula')}: {t('fahrenheit')} = {t('celsius')} * 1.8 + 32
         </div>
       </div>
     </div>

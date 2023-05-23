@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {Card, Input, Button, Select, message} from 'antd'
 import dayjs from 'dayjs'
+import {useTranslation} from 'react-i18next'
 import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
 
@@ -18,6 +19,7 @@ const time = () => {
   const [timezone, setTimezone] = useState('8')
   const [originTime, setOriginTime] = useState('')
   const [resultTime, setResultTime] = useState('')
+  const {t} = useTranslation()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e)
@@ -30,7 +32,7 @@ const time = () => {
         dayjs(originTime).utcOffset(timezone).format('YYYY-MM-DD HH:mm:ss'),
       )
     } else {
-      message.error('不是有效的时间')
+      message.error('invalid time')
     }
   }
 
@@ -51,22 +53,22 @@ const time = () => {
     <div className="p-6">
       <div className="flex gap-5">
         <Card style={{width: 300}}>
-          <p>本地时间</p>
+          <p>{t('localTime')}</p>
           <div>{localTime}</div>
         </Card>
         <Card style={{width: 300}}>
-          <p>UTC时间</p>
+          <p>{t('UTCTime')}</p>
           <div>{utcTime}</div>
         </Card>
       </div>
       <div className="mt-5">
-        时间：
+        {t('time')}:
         <Input
-          placeholder="请输入要转换的时间"
+          placeholder={t('please input time') ?? ''}
           value={originTime}
           onChange={onChange}
         />
-        时区：
+        {t('timezone')}:
         <Select
           defaultValue={timezone}
           value={timezone}
@@ -80,11 +82,11 @@ const time = () => {
           ))}
         </Select>
         <Button type="primary" style={{margin: '20px 0'}} onClick={transfer}>
-          转换
+          {t('transfer')}
         </Button>
         <br />
-        结果：
-        <Input placeholder="转换后时间" readOnly value={resultTime} />
+        {t('result')}:
+        <Input placeholder={t('result') ?? ''} readOnly value={resultTime} />
       </div>
     </div>
   )

@@ -10,7 +10,10 @@ import {
   ToolOutlined,
 } from '@ant-design/icons'
 import {useAtom} from 'jotai'
-import {appTheme} from '@/store/store'
+import {appTheme, appLanguage} from '@/store/store'
+import zhCN from 'antd/locale/zh_CN'
+import enUS from 'antd/locale/en_US'
+import {useTranslation} from 'react-i18next'
 
 const {Content, Sider} = Layout
 
@@ -31,12 +34,6 @@ function getItem(
     type,
   } as MenuItem
 }
-const items: MenuItem[] = [
-  getItem('图片处理', 'image', <FileImageOutlined />),
-  getItem('工具箱', 'tools', <ToolOutlined />),
-  getItem('系统', 'system', <InfoCircleOutlined />),
-  getItem('设置', 'setting', <SettingOutlined />),
-]
 
 const notHasBack = ['/image', '/tools', '/system', '/setting']
 
@@ -45,9 +42,16 @@ const home = () => {
   const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
   const [aTheme] = useAtom(appTheme)
-
+  const [locale] = useAtom(appLanguage)
+  const {t} = useTranslation()
+  const items: MenuItem[] = [
+    getItem(t('tools'), 'tools', <ToolOutlined />),
+    getItem(t('imageHandler'), 'image', <FileImageOutlined />),
+    getItem(t('system'), 'system', <InfoCircleOutlined />),
+    getItem(t('setting'), 'setting', <SettingOutlined />),
+  ]
   useEffect(() => {
-    navigate('/image')
+    navigate('/tools')
     console.log('location', location)
   }, [])
 
@@ -60,6 +64,7 @@ const home = () => {
         algorithm:
           aTheme === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm,
       }}
+      locale={locale === 'zh' ? zhCN : enUS}
     >
       <Layout
         style={{
@@ -80,7 +85,7 @@ const home = () => {
               height: '100%',
             }}
             theme="light"
-            defaultSelectedKeys={['image']}
+            defaultSelectedKeys={['tools']}
             mode="inline"
             items={items}
             onClick={onMenuClick}

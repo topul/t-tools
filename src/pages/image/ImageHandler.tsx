@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {Image, Form, Input, Button, Checkbox, notification, Slider} from 'antd'
 import {PlusSquareTwoTone} from '@ant-design/icons'
+import {useTranslation} from 'react-i18next'
 
 const ImageHandler = () => {
   const [imageInfo, setImageInfo] = useState<{
@@ -9,6 +10,7 @@ const ImageHandler = () => {
   }>()
   const [fileName, setFileName] = useState('')
   const [form] = Form.useForm()
+  const {t} = useTranslation()
 
   const openFileDialog = async () => {
     const result = await window.electronAPI.openFileDialog()
@@ -19,7 +21,7 @@ const ImageHandler = () => {
         width: result.dimensions.width,
         height: result.dimensions.height,
         quality: 100,
-        greyscale: false,
+        grayscale: false,
         path: result.path,
       })
       const filePath = result.path.split('\\')
@@ -43,7 +45,7 @@ const ImageHandler = () => {
     width: string
     height: string
     quality: number
-    greyscale: boolean
+    grayscale: boolean
     path: string
   }) => {
     console.log('onFinish', values)
@@ -52,7 +54,7 @@ const ImageHandler = () => {
       path: window.nodeAPI.path.join(values.path, fileName),
     })
     notification.success({
-      message: '保存成功',
+      message: 'success',
     })
   }
 
@@ -71,32 +73,32 @@ const ImageHandler = () => {
               <Form
                 form={form}
                 name="basic"
-                labelCol={{span: 6}}
-                wrapperCol={{span: 18}}
+                labelCol={{span: 8}}
+                wrapperCol={{span: 16}}
                 autoComplete="off"
                 labelAlign="left"
                 onFinish={(values): void => {
                   onFinish(values)
                 }}
               >
-                <Form.Item label="宽" name="width">
+                <Form.Item label={t('width')} name="width">
                   <Input />
                 </Form.Item>
-                <Form.Item label="高" name="height">
+                <Form.Item label={t('height')} name="height">
                   <Input />
                 </Form.Item>
-                <Form.Item label="质量" name="quality">
+                <Form.Item label={t('quality')} name="quality">
                   <Slider min={0} max={100} />
                 </Form.Item>
                 <Form.Item
-                  label="灰度"
-                  name="greyscale"
+                  label={t('grayscale')}
+                  name="grayscale"
                   valuePropName="checked"
                 >
                   <Checkbox></Checkbox>
                 </Form.Item>
                 {/* TODO: 截取 */}
-                <Form.Item label="输出路径" name="path">
+                <Form.Item label={t('outputPath')} name="path">
                   <Input
                     onClick={() => {
                       openFolderDialog()
@@ -105,7 +107,7 @@ const ImageHandler = () => {
                 </Form.Item>
                 <Form.Item>
                   <Button type="primary" htmlType="submit">
-                    保存
+                    {t('save')}
                   </Button>
                 </Form.Item>
               </Form>
@@ -124,11 +126,14 @@ const ImageHandler = () => {
       </div>
       <div className="h-8 flex-none flex items-center text-black">
         {imageInfo?.dimensions?.type && (
-          <div className="px-3">类型：{imageInfo.dimensions.type}</div>
+          <div className="px-3">
+            {t('type')}: {imageInfo.dimensions.type}
+          </div>
         )}
         {imageInfo?.dimensions.width && imageInfo?.dimensions.height ? (
           <div className="px-3">
-            尺寸：{imageInfo?.dimensions.width}*{imageInfo?.dimensions.height}
+            {t('size')}: {imageInfo?.dimensions.width}*
+            {imageInfo?.dimensions.height}
           </div>
         ) : (
           ''

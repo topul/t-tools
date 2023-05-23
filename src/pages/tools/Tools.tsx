@@ -1,8 +1,10 @@
 import {useNavigate} from 'react-router-dom'
 import {Card} from 'antd'
+import {useTranslation} from 'react-i18next'
 
 const Tools = () => {
   const navigate = useNavigate()
+  const {t} = useTranslation()
 
   const gridStyle: React.CSSProperties = {
     width: '25%',
@@ -18,7 +20,7 @@ const Tools = () => {
             navigate('/tools/time')
           }}
         >
-          世界时间与时区换算
+          {t('timezone')}
         </Card.Grid>
         <Card.Grid
           style={gridStyle}
@@ -26,7 +28,7 @@ const Tools = () => {
             navigate('/tools/ascii')
           }}
         >
-          ASCII表
+          {t('ASCII')}
         </Card.Grid>
         <Card.Grid
           style={gridStyle}
@@ -34,7 +36,7 @@ const Tools = () => {
             navigate('/tools/temp')
           }}
         >
-          温度单位转换
+          {t('temp')}
         </Card.Grid>
         <Card.Grid
           style={gridStyle}
@@ -42,7 +44,7 @@ const Tools = () => {
             navigate('/tools/base')
           }}
         >
-          进制转换
+          {t('base')}
         </Card.Grid>
       </Card>
     </>

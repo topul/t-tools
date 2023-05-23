@@ -50,11 +50,11 @@ async function handleImageSave(data) {
     const newImage = image
       .resize(+data.width, +data.height)
       .quality(data.quality)
-    let greyscaleImage = newImage
-    if (data.greyscale) {
-      greyscaleImage = newImage.greyscale()
+    let grayscaleImage = newImage
+    if (data.grayscale) {
+      grayscaleImage = newImage.grayscale()
     }
-    greyscaleImage.write(data.path)
+    grayscaleImage.write(data.path)
     return true
   } catch (error) {
     console.log(error)
