@@ -15,5 +15,4 @@
 ## 设置
 Features:
 - 暗黑模式
-
-<img width="1434" alt="image" src="https://github.com/topul/t-tools/assets/8213229/63921b4b-8f30-451c-9277-17cc84551b34">
+- 多语言
