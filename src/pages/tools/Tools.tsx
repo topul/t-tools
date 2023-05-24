@@ -20,7 +20,7 @@ const Tools = () => {
             navigate('/tools/time')
           }}
         >
-          {t('timezone')}
+          {t('timezone')} {t('transform')}
         </Card.Grid>
         <Card.Grid
           style={gridStyle}
@@ -36,7 +36,7 @@ const Tools = () => {
             navigate('/tools/temp')
           }}
         >
-          {t('temp')}
+          {t('temp')} {t('transform')}
         </Card.Grid>
         <Card.Grid
           style={gridStyle}
@@ -44,7 +44,7 @@ const Tools = () => {
             navigate('/tools/base')
           }}
         >
-          {t('base')}
+          {t('base')} {t('transform')}
         </Card.Grid>
       </Card>
     </>

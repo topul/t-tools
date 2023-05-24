@@ -1,11 +1,15 @@
+import AppBar from '@/components/AppBar'
+import './ascii.css'
+import {t} from 'i18next'
 const Ascii = () => {
   return (
-    <div className="h-full w-full overflow-y-auto bg-white p-6">
+    <div className="h-full w-full overflow-y-auto p-6">
       {/* <div>
         <h1 className='font-bold text-4xl'>ASCii码表</h1>
       </div> */}
-      <h4 className="font-bold text-xl mb-4">ASCii打印字符对照表</h4>
-      <table className="table text-center">
+      <AppBar title={t('ASCII')} />
+      <h4 className="font-bold text-base mb-4">ASCii打印字符对照表</h4>
+      <table className="w-full table text-center border border-collapse border-solid border-orange-300">
         <tbody>
           <tr>
             <th className="w-10">DEC</th>
@@ -1171,7 +1175,7 @@ const Ascii = () => {
         </tbody>
       </table>
       <h4 className="font-bold text-xl my-4">扩展ASCii打印字符对照表</h4>
-      <table className="table text-center">
+      <table className="w-full table text-center border border-collapse border-solid border-orange-300">
         <tbody>
           <tr>
             <th className="w-10">DEC</th>

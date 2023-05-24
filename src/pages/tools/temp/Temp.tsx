@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
-import {Input} from 'antd'
+import {Form, Input} from 'antd'
 import {useTranslation} from 'react-i18next'
+import AppBar from '@/components/AppBar'
 
 const Temp = () => {
   const [c, setC] = useState<string | number>(30)
@@ -41,26 +42,25 @@ const Temp = () => {
 
   return (
     <div className="p-6">
-      <div>
-        <div>
-          {t('celsius')}(℃):
+      <AppBar title={`${t('temp')} ${t('transform')}`} />
+      <Form>
+        <Form.Item label={t('celsius')}>
           <Input
             placeholder={t('celsius') ?? ''}
             value={c}
             onChange={onCChange}
           />
-        </div>
-        <div>
-          {t('fahrenheit')}(℉):
+        </Form.Item>
+        <Form.Item label={t('fahrenheit')}>
           <Input
             placeholder={t('fahrenheit') ?? ''}
             value={f}
             onChange={onFChange}
           />
-        </div>
-        <div className="mt-5 text-gray-500">
-          {t('formula')}: {t('fahrenheit')} = {t('celsius')} * 1.8 + 32
-        </div>
+        </Form.Item>
+      </Form>
+      <div className="mt-5 text-gray-500">
+        {t('formula')}: {t('fahrenheit')} = {t('celsius')} * 1.8 + 32
       </div>
     </div>
   )

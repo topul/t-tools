@@ -3,7 +3,6 @@ import {Menu, Layout, ConfigProvider, theme} from 'antd'
 import type {MenuProps} from 'antd'
 import {Outlet, useLocation, useNavigate} from 'react-router-dom'
 import {
-  ArrowLeftOutlined,
   FileImageOutlined,
   InfoCircleOutlined,
   SettingOutlined,
@@ -34,8 +33,6 @@ function getItem(
     type,
   } as MenuItem
 }
-
-const notHasBack = ['/image', '/tools', '/system', '/setting']
 
 const home = () => {
   const navigate = useNavigate()
@@ -98,20 +95,10 @@ const home = () => {
               margin: 0,
               minHeight: 280,
             }}
+            className={`${
+              aConfig.theme === 'light' ? 'text-black' : 'text-white'
+            }`}
           >
-            {!notHasBack.includes(location.pathname) && (
-              <div className="pl-2">
-                <ArrowLeftOutlined
-                  // style={{fontSize: '24px', cursor: 'pointer'}}
-                  className={`text-2xl cursor-pointer ${
-                    aConfig.theme === 'light' ? 'text-black' : 'text-white'
-                  }`}
-                  onClick={() => {
-                    navigate(-1)
-                  }}
-                />
-              </div>
-            )}
             <Outlet />
           </Content>
         </Layout>
