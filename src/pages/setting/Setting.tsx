@@ -1,12 +1,25 @@
 import {Switch, Form, Select} from 'antd'
 import {useAtom} from 'jotai'
-import {ThemeEnum, appTheme, appLanguage, LanguageEnum} from '@/store/store'
+import {ThemeEnum, appConfig, LanguageEnum} from '@/store/store'
 import {useTranslation} from 'react-i18next'
 
 const Setting = () => {
-  const [theme, setTheme] = useAtom(appTheme)
-  const [locale, setLocale] = useAtom(appLanguage)
+  const [config, setConfig] = useAtom(appConfig)
   const {t, i18n} = useTranslation()
+
+  // setConfig的同时将设置保存到localStorage
+  const setAndSaveConfig = (
+    config:
+      | {theme: ThemeEnum; language: LanguageEnum}
+      | ((prev: {theme: ThemeEnum; language: LanguageEnum}) => {
+          theme: ThemeEnum
+          language: LanguageEnum
+        }),
+  ) => {
+    setConfig(config)
+    localStorage.setItem('appConfig', JSON.stringify(config))
+  }
+
   return (
     <div className="p-4">
       <Form labelCol={{span: 4}} wrapperCol={{span: 20}}>
@@ -14,18 +27,26 @@ const Setting = () => {
           <Switch
             checkedChildren={t('dark')}
             unCheckedChildren={t('light')}
-            checked={theme === 'dark'}
+            checked={config.theme === 'dark'}
             onChange={() => {
-              setTheme(theme === 'dark' ? ThemeEnum.light : ThemeEnum.dark)
+              setAndSaveConfig({
+                ...config,
+                theme:
+                  config.theme === 'dark' ? ThemeEnum.light : ThemeEnum.dark,
+              })
             }}
           />
         </Form.Item>
         <Form.Item label={t('language')}>
           <Select
-            value={locale}
+            value={config.language}
             onSelect={() => {
-              setLocale(locale === 'zh' ? LanguageEnum.en : LanguageEnum.zh)
-              i18n.changeLanguage(locale === 'zh' ? 'en' : 'zh')
+              setAndSaveConfig({
+                ...config,
+                language:
+                  config.language === 'zh' ? LanguageEnum.en : LanguageEnum.zh,
+              })
+              i18n.changeLanguage(config.language === 'zh' ? 'en' : 'zh')
             }}
             style={{width: 120}}
           >

@@ -9,5 +9,13 @@ export enum LanguageEnum {
   zh = 'zh',
 }
 
-export const appTheme = atom(ThemeEnum.light)
-export const appLanguage = atom(LanguageEnum.zh)
+// 从 localStorage 中获取配置
+const config = localStorage.getItem('appConfig')
+const appConfigInit = config
+  ? JSON.parse(config)
+  : {
+      theme: ThemeEnum.light,
+      language: LanguageEnum.zh,
+    }
+
+export const appConfig = atom(appConfigInit)

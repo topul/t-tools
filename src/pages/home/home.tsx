@@ -10,7 +10,7 @@ import {
   ToolOutlined,
 } from '@ant-design/icons'
 import {useAtom} from 'jotai'
-import {appTheme, appLanguage} from '@/store/store'
+import {appConfig} from '@/store/store'
 import zhCN from 'antd/locale/zh_CN'
 import enUS from 'antd/locale/en_US'
 import {useTranslation} from 'react-i18next'
@@ -41,8 +41,7 @@ const home = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
-  const [aTheme] = useAtom(appTheme)
-  const [locale] = useAtom(appLanguage)
+  const [aConfig] = useAtom(appConfig)
   const {t} = useTranslation()
   const items: MenuItem[] = [
     getItem(t('tools'), 'tools', <ToolOutlined />),
@@ -62,9 +61,11 @@ const home = () => {
     <ConfigProvider
       theme={{
         algorithm:
-          aTheme === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm,
+          aConfig.theme === 'light'
+            ? theme.defaultAlgorithm
+            : theme.darkAlgorithm,
       }}
-      locale={locale === 'zh' ? zhCN : enUS}
+      locale={aConfig.language === 'zh' ? zhCN : enUS}
     >
       <Layout
         style={{
@@ -101,7 +102,10 @@ const home = () => {
             {!notHasBack.includes(location.pathname) && (
               <div className="pl-2">
                 <ArrowLeftOutlined
-                  style={{fontSize: '24px', cursor: 'pointer'}}
+                  // style={{fontSize: '24px', cursor: 'pointer'}}
+                  className={`text-2xl cursor-pointer ${
+                    aConfig.theme === 'light' ? 'text-black' : 'text-white'
+                  }`}
                   onClick={() => {
                     navigate(-1)
                   }}
