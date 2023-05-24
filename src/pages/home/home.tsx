@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {Menu, Layout, ConfigProvider, theme} from 'antd'
 import type {MenuProps} from 'antd'
-import {Outlet, useLocation, useNavigate} from 'react-router-dom'
+import {Outlet, useNavigate} from 'react-router-dom'
 import {
   FileImageOutlined,
   InfoCircleOutlined,
@@ -9,7 +9,7 @@ import {
   ToolOutlined,
 } from '@ant-design/icons'
 import {useAtom} from 'jotai'
-import {appConfig} from '@/store/store'
+import {ThemeEnum, appConfig} from '@/store/store'
 import zhCN from 'antd/locale/zh_CN'
 import enUS from 'antd/locale/en_US'
 import {useTranslation} from 'react-i18next'
@@ -36,9 +36,8 @@ function getItem(
 
 const home = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
-  const [aConfig] = useAtom(appConfig)
+  const [aConfig, setConfig] = useAtom(appConfig)
   const {t} = useTranslation()
   const items: MenuItem[] = [
     getItem(t('tools'), 'tools', <ToolOutlined />),
@@ -48,7 +47,23 @@ const home = () => {
   ]
   useEffect(() => {
     navigate('/tools')
-    console.log('location', location)
+    const mqList = window.matchMedia('(prefers-color-scheme: dark)')
+
+    mqList.addEventListener('change', event => {
+      // is dark mode
+      if (event.matches) {
+        setConfig({
+          ...aConfig,
+          theme: ThemeEnum.dark,
+        })
+      } else {
+        // not dark mode
+        setConfig({
+          ...aConfig,
+          theme: ThemeEnum.light,
+        })
+      }
+    })
   }, [])
 
   const onMenuClick: MenuProps['onClick'] = ({key}) => {

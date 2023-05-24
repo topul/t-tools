@@ -1,5 +1,5 @@
 const path = require('path')
-const {app, BrowserWindow, Menu} = require('electron')
+const {app, BrowserWindow, Menu, nativeTheme} = require('electron')
 const {ipcMain, dialog} = require('electron/main')
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
@@ -90,6 +90,18 @@ function createWindow() {
   ipcMain.handle('dialog:openFile', () => handleFileOpen(mainWindow))
   ipcMain.handle('dialog:openFolder', () => handleFolderOpen(mainWindow))
   ipcMain.handle('image:save', (event, data) => handleImageSave(data))
+  ipcMain.handle('dark-mode:toggle', () => {
+    if (nativeTheme.shouldUseDarkColors) {
+      nativeTheme.themeSource = 'light'
+    } else {
+      nativeTheme.themeSource = 'dark'
+    }
+    return nativeTheme.shouldUseDarkColors
+  })
+
+  ipcMain.handle('dark-mode:system', () => {
+    nativeTheme.themeSource = 'system'
+  })
 }
 
 app.whenReady().then(() => {

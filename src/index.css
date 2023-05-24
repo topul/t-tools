@@ -40,6 +40,13 @@ code {
   margin: 0;
   padding: 0;
 }
+@media (prefers-color-scheme: dark) {
+  body { background: #333; color: white; }
+}
+
+@media (prefers-color-scheme: light) {
+  body { background: #ddd; color: black; }
+}
 #root {
   width: 100vw;
   min-width: 900px;

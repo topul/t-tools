@@ -3,6 +3,11 @@ const path = require('path')
 const os = require('os')
 const {contextBridge, ipcRenderer} = require('electron')
 
+contextBridge.exposeInMainWorld('darkMode', {
+  toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
+  system: () => ipcRenderer.invoke('dark-mode:system'),
+})
+
 contextBridge.exposeInMainWorld('electronAPI', {
   openFileDialog: () => ipcRenderer.invoke('dialog:openFile'),
   openFolderDialog: () => ipcRenderer.invoke('dialog:openFolder'),

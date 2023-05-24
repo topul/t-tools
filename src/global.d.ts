@@ -1,4 +1,8 @@
 interface Window {
+  darkMode: {
+    toggle: () => Promise<boolean>
+    system: () => Promise<void>
+  }
   electronAPI: {
     openFileDialog: () => Promise<{
       dimensions: {
