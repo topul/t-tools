@@ -69,13 +69,19 @@ const home = () => {
   const onMenuClick: MenuProps['onClick'] = ({key}) => {
     navigate(`/${key}`)
   }
+  const getTheme = (): string => {
+    if (aConfig.theme === 'system') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
+    }
+    return aConfig.theme
+  }
   return (
     <ConfigProvider
       theme={{
         algorithm:
-          aConfig.theme === 'light'
-            ? theme.defaultAlgorithm
-            : theme.darkAlgorithm,
+          getTheme() === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm,
       }}
       locale={aConfig.language === 'zh' ? zhCN : enUS}
     >

@@ -6,7 +6,7 @@ import {useState} from 'react'
 
 const Setting = () => {
   const [config, setConfig] = useAtom(appConfig)
-  const [themeValue, setThemeValue] = useState('dark')
+  const [themeValue, setThemeValue] = useState(config.theme)
   const {t, i18n} = useTranslation()
 
   // setConfig的同时将设置保存到localStorage
@@ -19,9 +19,9 @@ const Setting = () => {
   }
 
   const options = [
-    {label: '暗黑', value: 'dark'},
-    {label: '亮色', value: 'light'},
-    {label: '跟随系统', value: 'system'},
+    {label: t('dark'), value: 'dark'},
+    {label: t('light'), value: 'light'},
+    {label: t('system'), value: 'system'},
   ]
 
   const onChange = async ({target: {value}}: RadioChangeEvent) => {
@@ -35,12 +35,9 @@ const Setting = () => {
     } else {
       await window.darkMode.system()
       // detect if on dark mode
-      const isDarkMode = window.matchMedia(
-        '(prefers-color-scheme: dark)',
-      ).matches
       setAndSaveConfig({
         ...config,
-        theme: isDarkMode ? ThemeEnum.dark : ThemeEnum.light,
+        theme: 'system',
       })
     }
   }
