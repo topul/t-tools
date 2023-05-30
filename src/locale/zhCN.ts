@@ -42,4 +42,5 @@ export default {
   language: '语言',
   dark: '深色',
   light: '浅色',
+  darkMode: '暗黑模式',
 }

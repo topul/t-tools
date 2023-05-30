@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react'
-import {Menu, Layout, ConfigProvider, theme} from 'antd'
+import {useEffect} from 'react'
+import {Menu, Layout, ConfigProvider, theme, Switch} from 'antd'
 import type {MenuProps} from 'antd'
 import {Outlet, useNavigate} from 'react-router-dom'
 import {
@@ -9,10 +9,11 @@ import {
   ToolOutlined,
 } from '@ant-design/icons'
 import {useAtom} from 'jotai'
-import {ThemeEnum, appConfig} from '@/store/store'
+import {type LanguageEnum, ThemeEnum, appConfig} from '@/store/store'
 import zhCN from 'antd/locale/zh_CN'
 import enUS from 'antd/locale/en_US'
 import {useTranslation} from 'react-i18next'
+import './styles.css'
 
 const {Content, Sider} = Layout
 
@@ -36,7 +37,6 @@ function getItem(
 
 const home = () => {
   const navigate = useNavigate()
-  const [collapsed, setCollapsed] = useState(false)
   const [aConfig, setConfig] = useAtom(appConfig)
   const {t} = useTranslation()
   const items: MenuItem[] = [
@@ -69,19 +69,33 @@ const home = () => {
   const onMenuClick: MenuProps['onClick'] = ({key}) => {
     navigate(`/${key}`)
   }
-  const getTheme = (): string => {
-    if (aConfig.theme === 'system') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
-    }
-    return aConfig.theme
+
+  // setConfig的同时将设置保存到localStorage
+  const setAndSaveConfig = async (config: {
+    theme: ThemeEnum
+    language: LanguageEnum
+  }) => {
+    setConfig(config)
+    localStorage.setItem('appConfig', JSON.stringify(config))
+  }
+
+  const onChange = async () => {
+    const isDarkMode = await window.darkMode.toggle()
+    setAndSaveConfig({
+      ...aConfig,
+      theme: !isDarkMode ? ThemeEnum.light : ThemeEnum.dark,
+    })
   }
   return (
     <ConfigProvider
       theme={{
         algorithm:
-          getTheme() === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm,
+          aConfig.theme === 'light'
+            ? theme.defaultAlgorithm
+            : theme.darkAlgorithm,
+        token: {
+          colorPrimary: '#00b96b',
+        },
       }}
       locale={aConfig.language === 'zh' ? zhCN : enUS}
     >
@@ -91,24 +105,24 @@ const home = () => {
           height: '100%',
         }}
       >
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={value => {
-            setCollapsed(value)
-          }}
-          theme="light"
-        >
+        <Sider theme="light" className="h-full flex flex-col">
           <Menu
-            style={{
-              height: '100%',
-            }}
+            className="flex-1"
             theme="light"
             defaultSelectedKeys={['tools']}
             mode="inline"
             items={items}
             onClick={onMenuClick}
           />
+          <div className="flex-none h-16 text-sm flex justify-center items-center border-solid border-0 border-t border-gray-200">
+            <span className="mr-6">{t('darkMode')}</span>
+            <Switch
+              checked={aConfig.theme === 'dark'}
+              onChange={() => {
+                onChange()
+              }}
+            />
+          </div>
         </Sider>
         <Layout>
           <Content

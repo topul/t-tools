@@ -42,4 +42,5 @@ export default {
   language: 'Language',
   dark: 'Dark',
   light: 'Light',
+  darkMode: 'Dark Mode',
 }

@@ -1,12 +1,10 @@
-import {Form, Select, Radio, type RadioChangeEvent} from 'antd'
+import {Form, Select} from 'antd'
 import {useAtom} from 'jotai'
-import {ThemeEnum, appConfig, LanguageEnum} from '@/store/store'
+import {type ThemeEnum, appConfig, LanguageEnum} from '@/store/store'
 import {useTranslation} from 'react-i18next'
-import {useState} from 'react'
 
 const Setting = () => {
   const [config, setConfig] = useAtom(appConfig)
-  const [themeValue, setThemeValue] = useState(config.theme)
   const {t, i18n} = useTranslation()
 
   // setConfig的同时将设置保存到localStorage
@@ -18,34 +16,10 @@ const Setting = () => {
     localStorage.setItem('appConfig', JSON.stringify(config))
   }
 
-  const options = [
-    {label: t('dark'), value: 'dark'},
-    {label: t('light'), value: 'light'},
-    {label: t('system'), value: 'system'},
-  ]
-
-  const onChange = async ({target: {value}}: RadioChangeEvent) => {
-    setThemeValue(value)
-    if (value !== 'system') {
-      const isDarkMode = await window.darkMode.toggle()
-      setAndSaveConfig({
-        ...config,
-        theme: !isDarkMode ? ThemeEnum.light : ThemeEnum.dark,
-      })
-    } else {
-      await window.darkMode.system()
-      // detect if on dark mode
-      setAndSaveConfig({
-        ...config,
-        theme: 'system',
-      })
-    }
-  }
-
   return (
     <div className="p-4">
       <Form labelCol={{span: 4}} wrapperCol={{span: 20}}>
-        <Form.Item label={t('theme')}>
+        {/* <Form.Item label={t('theme')}>
           <Radio.Group
             options={options}
             onChange={e => {
@@ -54,7 +28,7 @@ const Setting = () => {
             value={themeValue}
             optionType="button"
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label={t('language')}>
           <Select
             value={config.language}
