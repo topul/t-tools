@@ -7,6 +7,7 @@ import {
   InfoCircleOutlined,
   SettingOutlined,
   ToolOutlined,
+  createFromIconfontCN,
 } from '@ant-design/icons'
 import {useAtom} from 'jotai'
 import {type LanguageEnum, ThemeEnum, appConfig} from '@/store/store'
@@ -34,6 +35,10 @@ function getItem(
     type,
   } as MenuItem
 }
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/c/font_4096782_ymffewcobvc.js',
+})
 
 const home = () => {
   const navigate = useNavigate()
@@ -115,7 +120,12 @@ const home = () => {
             onClick={onMenuClick}
           />
           <div className="flex-none h-16 text-sm flex justify-center items-center border-solid border-0 border-t border-gray-200">
-            <span className="mr-6">{t('darkMode')}</span>
+            {aConfig.theme === 'dark' ? (
+              <IconFont type="icon-Sun" className="text-lg" />
+            ) : (
+              <IconFont type="icon-moon" style={{fontSize: '16px'}} />
+            )}
+            <span className="ml-2 mr-6">{t('darkMode')}</span>
             <Switch
               checked={aConfig.theme === 'dark'}
               onChange={() => {
